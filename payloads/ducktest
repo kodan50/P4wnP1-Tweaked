@@ -1,0 +1,34 @@
+USE_HID=true
+HID_KEYBOARD_TEST=true
+lang="us"
+
+function onKeyboardUp()
+{
+	cat <<- EOF | duckhid
+DELAY 500
+GUI r
+DELAY 200
+STRING notepad.exe
+ENTER
+DELAY 300
+ENTER
+STRING This is the first ducky script echoed with cat and piped into duckhid
+ENTER
+EOF
+
+	echo "@echo off > test.bat" | outhid
+        echo "echo Keyboard is running >> test.bat" | outhid
+        echo "echo This is just a test to see if bracket pipes work. >> test.bat" | outhid
+        echo "test" | outhid
+
+        cat <<- EOF | duckhid
+ENTER
+STRING This is the second ducky script echoed with cat and piped into duckhid
+ENTER
+DELAY 100
+ALT SPACE
+STRING x
+DELAY 50
+GUI l
+EOF
+}
