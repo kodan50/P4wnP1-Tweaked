@@ -1,10 +1,13 @@
+USE_ECM=false
+USE_RNDIS=false
+
 USE_HID=true
 HID_KEYBOARD_TEST=true
 lang="us"
 
 function onKeyboardUp()
 {
-	cat <<- EOF | duckhid
+cat <<- EOF | duckhid
 DELAY 500
 GUI r
 DELAY 200
@@ -16,19 +19,41 @@ STRING This is the first ducky script echoed with cat and piped into duckhid
 ENTER
 EOF
 
-	echo "@echo off > test.bat" | outhid
-        echo "echo Keyboard is running >> test.bat" | outhid
-        echo "echo This is just a test to see if bracket pipes work. >> test.bat" | outhid
-        echo "test" | outhid
+echo "@echo off > test.bat" | outhid
+echo "echo Keyboard is running >> test.bat" | outhid
+echo "echo This is just a test to see if bracket pipes work. >> test.bat" | outhid
+echo "test" | outhid
+echo "" | outhid
+echo "!@#$%^&*():" | outhid
+echo "\|" | outhid
+echo '|' | outhid
+echo '"' | outhid
+echo '.' | outhid
+echo "set volume=\Volume{8bc9f784-9f15-11e4-be58-a60f30d14122}" | outhid
+echo "for  %%D in (A B C D E F G H I J K L M N O P Q R S T U V W X Y Z) do (" | outhid
+echo "mountvol %%D: /L | findstr "%volume%" >nul" | outhid
+echo "........." | outhid
+echo "echo list volume > \"%TEMP%\diskpart.srp\"" | outhid
+echo "echo exit >> \"%TEMP%\diskpart.srp\"" | outhid
+echo "diskpart /s \"%TEMP%\diskpart.srp\" | findstr \"DUCKY\" > \"%TEMP%\out.srp\"" | outhid
+echo "set /p DriveTemp= < \"%TEMP%\out.srp\"" | outhid
+echo "set Drive=%DriveTemp:~15,1%" | outhid
+echo "if \"%Drive%\" == \" \" echo \"Ducky drive is not mounted.\"" | outhid
+echo "........." | outhid
 
-        cat <<- EOF | duckhid
+ # echo "CreateObject('"'Wscript.Shell'"').Run '"''"''"''"' & WScript.Arguments(0) & '"''"''"''"', 0, False'"' | outhid
+
+echo $'q1It\'s Shell Programming' | outhid
+echo echo
+
+cat <<- EOF | duckhid
 ENTER
-STRING This is the second ducky script echoed with cat and piped into duckhid
+STRING This is the second ducky script echoed with cat and piped into duckhid |:
 ENTER
 DELAY 100
 ALT SPACE
 STRING x
 DELAY 50
-GUI l
+REM GUI l
 EOF
 }

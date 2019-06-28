@@ -1,0 +1,81 @@
+# This payload is going to mount the external drive to access files on it.
+# This is part of a greater project to virus scan all the things.
+
+USB_VID="0x1d6b"        # Vendor ID
+USB_PID="0x0106"        # Product ID
+
+USE_ECM=false            # if true CDC ECM will be enabled (Ethernet over USB for Windows)
+USE_RNDIS=false          # if true RNDIS will be enabled (Ethernet over USB for macOS/Linux)
+USE_HID=true            # if true HID keyboard will be enabled (USB keyboard attacks)
+USE_UMS=true           # if true USB Mass Storage will be enabled
+
+# This shouldn't need to be set, but not every computer we use are en-US, so change this if that changes, or change the setting manually.
+lang="us"
+
+# Make sure the keyboard is up and running.
+HID_KEYBOARD_TEST=true
+
+function onKeyboardUp()
+{
+cat <<- EOF | duckhid
+	GUI r
+	DELAY 100
+	STRING cmd /Q /D /T:7F /F:OFF /V:ON /K
+	DELAY 200
+	STRING cd /d "%TEMP%"
+	ENTER
+	STRING erase /Q DuckyWait.bat
+	ENTER
+	STRING copy con DuckyWait.bat
+	ENTER
+	REM DuckyWait.bat
+	STRING :while1
+	ENTER
+EOF
+
+#	echo 'for /f "tokens=3 delims= " %%A in ('echo list volume ^| diskpart ^| findstr "DUCKY"') do (set DUCKYdrive=%%A:)'
+
+cat <<- EOF | duckhid
+	ENTER
+	STRING if Exist %DUCKYdrive% (
+	ENTER
+	STRING goto :break
+	ENTER
+	STRING )
+	ENTER
+	STRING timeout /t 30
+	ENTER
+	STRING goto :while1
+	ENTER
+	STRING :break
+	ENTER
+	STRING set DUCKYdrive=%DUCKYdrive%\CopyFileToDesktop\
+	ENTER
+	STRING copy %DUCKYdrive%HelloWorld.exe %userprofile%\Desktop\HelloWorld.exe
+	ENTER
+	CONTROL z
+	ENTER
+
+	REM MAKE THE VBS FILE THAT ALLOWS RUNNING INVISIBLY.
+	REM Delete vbs file if already exists
+	STRING erase /Q invis.vbs
+	ENTER
+	STRING copy con invis.vbs
+	ENTER
+EOF
+
+#	echo CreateObject("Wscript.Shell").Run """" & WScript.Arguments(0) & """", 0, False
+
+
+	ENTER
+	CONTROL z
+	ENTER
+
+	REM RUN THE BATCH FILE
+	STRING wscript.exe invis.vbs DuckyWait.bat
+	ENTER
+	STRING EXIT
+	ENTER
+
+EOF	
+}
