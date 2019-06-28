@@ -16,9 +16,9 @@ ENTER
 DELAY 300
 STRING cd /d "%TEMP%"
 ENTER
-STRING erase /Q DuckyWait.bat
+STRING erase /Q FindDucky.bat
 ENTER
-STRING copy con DuckyWait.bat
+STRING copy con FindDucky.bat
 ENTER
 EOF
 
