@@ -11,3 +11,4 @@ A python script that will allow you to reset and power down your Raspberry Pi by
 
 A tweak to the boot script that allows you to change the hostname of your Pi, so it won't come up as P4wnP1. See setup.cfg
 
+A bunch of other stuff that got deleted out of my readme file. Awesome. Anyway, since I don't feel like writing six more lines of description, have fun exploring my chaos.
