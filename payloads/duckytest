@@ -1,11 +1,9 @@
-USE_ECM=false
-USE_RNDIS=false
-
+USE_ECM=true
+USE_RNDIS=true
+USE_RAMDRIVE=true
 USE_HID=true
 HID_KEYBOARD_TEST=true
 lang="us"
-
-
 
 function onKeyboardUp()
 {
@@ -26,16 +24,20 @@ STRING @echo off
 ENTER
 EOF
 
-# We are switching to outhid because duckhid doesn't like special characters and goes haywire.
+# We are switching to outhid because duckhid isn't being consistent on when it is and is not okay with special characters. asked
+# to call from terminal and it seems to work, but asked to be called from this file, and all of a sudden it doesn't work. Rage!!
+
 # The way the ducky drive is found is based on the label of the device. While unlikely to happen, if another drive with the same
 # label exists in the computer, this will break the script and cause chaos. You may want to change the label of your ducky drive
 # to something unique or specific to avoid conflicts, but that decision is entirely at your discretion. Try to avoid long labels
 # and try to avoid spaces. Using quotation marks should make spaces work, but findstr is very buggy, and likes to not work well.
-echo "wmic logicaldisk get deviceid, volumename | findstr \"DUCKY\" > \"%TEMP%\out.srp\"" | outhid
-echo "set /p DriveTemp= < \"%TEMP%\out.srp\"" | outhid
-echo "set Drive=%DriveTemp:~0,1%" | outhid
-echo "if \"%Drive%\" == \" \" echo Ducky drive is not mounted." | outhid
-echo "if not \"%Drive%\" == \" \" %Drive%:\DUCKY.BAT" | outhid
+(
+echo "wmic logicaldisk get deviceid, volumename | findstr \"DUCKY\" > \"%TEMP%\out.srp\"";
+echo "set /p DriveTemp= < \"%TEMP%\out.srp\"";
+echo "set Drive=%DriveTemp:~0,1%";
+echo "if \"%Drive%\" == \" \" echo Ducky drive is not mounted. && pause && exit";
+echo "cd /d %Drive%:";
+echo "if not \"%Drive%\" == \" \" %Drive%:\DUCKY.BAT") | outhid
 # If your external drive is mounted, the batch file "DUCKY" will be called from the flash drive to give you access to some tools.
 # You should be able to add to this batch file easily referring to %Drive%:\ to get to ducky.
 # If your external drive does not mount automatically by Windows, you will need to use Diskpart or Disk Manager to mount it.
@@ -56,6 +58,23 @@ STRING PAUSE
 ENTER
 STRING EXIT
 ENTER
+CONTROL z
+ENTER
+STRING CLS
+ENTER
+EOF
+
+cat <<- EOF | duckhid
+STRING ERASE IPRange.srp
+ENTER
+STRING COPY CON IPRange.srp
+ENTER
+EOF
+
+hostname -I | xargs -n1 > $wdir/RAMDrive/Out
+cat $wdir/RAMDrive/Out | outhid
+
+cat <<- EOF | duckhid
 CONTROL z
 ENTER
 STRING CLS
