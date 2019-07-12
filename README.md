@@ -3,7 +3,7 @@
 WIP. Will likely destroy your flash drive, Raspberry Pi, computer, network, ISP switch, and a few satellites. Do not use this.
 
 I don't feel as if any of these tweaks are necessary for the official P4wnP1 project, so I created my own stub for some random
-stuff I've wanted to see included.
+stuff I've wanted to see included. I am also hoping this means I can restore my custom settings back if I have to reimage P4wnP1.
 
 Speaking of included:
 
@@ -19,6 +19,7 @@ A python script that can blink a multicolor LED depending on status. You will ne
 - Blue can be used when we are running some internal operation, such as JohnTheRipper. Should also be used to tell what stage a payload is in, like what the onboard LED does, but can be seen from outside the case.
 - Still in progress.
 -If all LED's are off, then the Pi can be unplugged.
+* I am hijacking the existing led_status to do this and reverting LEDACT so I can push this to another LED that is outside the Pi.
 
 A tweak to the boot script that allows you to change the hostname of your Pi, so it won't come up as P4wnP1. See setup.cfg
  - Still in progress.
@@ -31,6 +32,6 @@ Before using:
 
 Please make sure you've updated Linux.
 Please make sure you've updated P4wnP1.
-! Actually, don't. I need to test and see if the update to P4wnP1 is what broke john, or if updating Linux broke John.
+! Actually, don't. I need to test and see if the update to P4wnP1 is what broke john, or if updating Linux broke John. Or why John is upset.
 
 Run setup.sh to replace and configure what needs to be done.
