@@ -10,16 +10,13 @@ Speaking of included:
 A payload mixing duckout and hidout to call a batch file stored on the USB_STORAGE, as well as a few random tests.
 - I stashed all the test and example payloads into "example" subfolder for organization purposes.
 
-A python script that will allow you to reset and power down your Raspberry Pi by installing a switch. see /gpio/GPIO_button.py
+A python script that will allow you to reset and power down your Raspberry Pi by installing a button. see /gpio/gpio_button.py
 
-A python script that can blink a multicolor LED depending on status. You will need to set ledstatus. see /gpio/GPIO_led.py.
- - Red can be used when we are running ducky like features, either duckhid or outhid.
- - Solid Red can be an error, check log for details.
- - Green should be idle, ready-for-a-command state.
-- Blue can be used when we are running some internal operation, such as JohnTheRipper. Should also be used to tell what stage a payload is in, like what the onboard LED does, but can be seen from outside the case.
-- Still in progress.
--If all LED's are off, then the Pi can be unplugged.
-* I am hijacking the existing led_status to do this and reverting LEDACT so I can push this to another LED that is outside the Pi.
+I've hijacked ledtool to use an external LED to show status. Please refer to ledtool.py in order to get new color setting information. Below will list how I am using these LED colors.
+- When the LED is solid green, it means P4wnP1 is idle and ready for a job.
+- When the LED is blinking red, Ducky is sending something out to control the computer.
+- When the LED is blinking blue, it means P4wnP1 is processing something, or waiting on something else.
+- Red and Blue LEDs can blink up to 10 times a loop, so you can see what stage a script is in.
 
 A tweak to the boot script that allows you to change the hostname of your Pi, so it won't come up as P4wnP1. See setup.cfg
  - Still in progress.
@@ -32,4 +29,4 @@ When you run setup, it will ask for root password and execute as root. Please ch
 
 * Setup will nuke the existing P4wnP1 directory and reclone the latest one. Make sure you save any of your own files before proceeding.
 
-* Setup will add mount entries into fstab in order to make tmp a ram drive.
+* Setup will add mount entries into fstab in order to make tmp a ramfs drive.
