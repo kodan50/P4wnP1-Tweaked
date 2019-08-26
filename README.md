@@ -28,5 +28,8 @@ A RAMDrive was added so Ducky batch can send and execute duckyscripts without sp
 
 And probably a few more things I forgot about.
 
-Please run setup.sh as a root user.
+When you run setup, it will ask for root password and execute as root. Please check the code over before you execute to make sure you trust it!
+
 * Setup will nuke the existing P4wnP1 directory and reclone the latest one. Make sure you save any of your own files before proceeding.
+
+* Setup will add mount entries into fstab in order to make tmp a ram drive.
