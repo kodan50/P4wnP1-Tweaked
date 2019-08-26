@@ -73,10 +73,12 @@ rm ~/P4wnP1/boot_P4wnP1
 cp ~/P4wnP1-Tweaked/files/boot_P4wnP1 ~/P4wnP1/boot/boot_P4wnP1
 rm ~/P4wnP1/ledtool/ledtool.py
 cp ~/P4wnP1-Tweaked/files/ledtool.py ~/P4wnP1/ledtool/
+rm ~/P4wnP1/setup.cfg
+cp ~/P4wnP1-Tweaked/files/setup.cfg ~/P4wnP1/
 
 # Copies the newly created files into P4wnP1 directories.
 mkdir ~/P4wnP1/gpio
-cp ~/P4wnP1-Tweaked/gpio/gpio_buttons.py ~/P4wnP1/gpio/
+cp ~/P4wnP1-Tweaked/files/buttons.py ~/P4wnP1/gpio/
 cp ~/P4wnP1-Tweaked/files/callduckydrive.txt ~/P4wnP1/payloads
 
 # Cleans up P4wnP1 payloads by moving them into /examples. You can easily call a payload from this folder, or move the payload out of /examples.
