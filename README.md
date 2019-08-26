@@ -1,6 +1,6 @@
 # P4wnP1
 
-WIP. Please use this modification with extreme care. This modification currently has no polish, and has no been tested outside of a very specific setup.
+WIP. Please use this modification with extreme care. This modification currently has no polish, and has no been tested outside of a very specific setup, and the installation will probably fail spectacularely.
 
 I don't feel as if any of these tweaks are necessary for the official P4wnP1 project, so I created my own stub for some random
 stuff I've wanted to see included. I am also hoping this means I can restore my custom settings back if I have to reimage P4wnP1.
