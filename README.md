@@ -1,6 +1,6 @@
 # P4wnP1
 
-WIP. Will likely destroy your flash drive, Raspberry Pi, computer, network, ISP switch, and a few satellites. Do not use this.
+WIP. Please use this modification with extreme care. This modification currently has no polish, and has no been tested outside of a very specific setup.
 
 I don't feel as if any of these tweaks are necessary for the official P4wnP1 project, so I created my own stub for some random
 stuff I've wanted to see included. I am also hoping this means I can restore my custom settings back if I have to reimage P4wnP1.
@@ -10,9 +10,9 @@ Speaking of included:
 A payload mixing duckout and hidout to call a batch file stored on the USB_STORAGE, as well as a few random tests.
 - I stashed all the test and example payloads into "example" subfolder for organization purposes.
 
-A python script that will allow you to reset and power down your Raspberry Pi by installing a switch. see /GPIO/GPIO_button.py
+A python script that will allow you to reset and power down your Raspberry Pi by installing a switch. see /gpio/GPIO_button.py
 
-A python script that can blink a multicolor LED depending on status. You will need to set ledstatus. see /GPIO/GPIO_led.py
+A python script that can blink a multicolor LED depending on status. You will need to set ledstatus. see /gpio/GPIO_led.py.
  - Red can be used when we are running ducky like features, either duckhid or outhid.
  - Solid Red can be an error, check log for details.
  - Green should be idle, ready-for-a-command state.
@@ -28,10 +28,5 @@ A RAMDrive was added so Ducky batch can send and execute duckyscripts without sp
 
 And probably a few more things I forgot about.
 
-Before using:
-
-Please make sure you've updated Linux.
-Please make sure you've updated P4wnP1.
-! Actually, don't. I need to test and see if the update to P4wnP1 is what broke john, or if updating Linux broke John. Or why John is upset.
-
-Run setup.sh to replace and configure what needs to be done.
+Please run setup.sh as a root user.
+* Setup will nuke the existing P4wnP1 directory and reclone the latest one. Make sure you save any of your own files before proceeding.

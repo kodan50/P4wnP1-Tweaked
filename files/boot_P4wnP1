@@ -36,8 +36,16 @@
 wdir=$( cd $(dirname $BASH_SOURCE[0]) && cd .. && pwd)
 
 echo =================================== P4wnP1 startup ===========================================
-echo "P4wnP1: Init LED control..."
+
+echo "P4wnP1: Copy files to tmp ..."
+cp -r $wdir/resource/tmp/* /tmp
+chown pi:pi /tmp/*
+
+echo "P4wnP1: Init LED control ..."
 source $wdir/boot/init_led.sh
+
+echo "P4wnP1: Init physical reboot and power switches ..."
+python $wdir/gpio/buttons.py &
 
 echo "P4wnP1: Loading config ..."
 source $wdir/boot/init_config.sh
@@ -129,7 +137,8 @@ fi
 
 # change hostname to make P4wnP1 resolveable on "name.local"
 if $WIFI || $USB_ETHERNET; then
-	hostname=$DEVICE_NAME
+	#hostname="MAME82-P4WNP1"
+	hostname=$SET_HOSTNAME
 
 	hostname $hostname
 	echo $hostname > /etc/hostname
@@ -204,11 +213,7 @@ if $USE_HID; then
 	fi
 fi
 
-if $USE_RAMDRIVE; then
-	mkdir $wdir/RAMDrive # Seems trying to be nifty broke everything, so let's just make the folder and it will error if the folder already exists
-	mount -t tmpfs -o size=64K tmpfs $wdir/RAMDrive/ # I don't think we need a larger temp drive unless we are pushing excessively large duckyscripts.
-	touch $wdir/RAMDrive/probe # this file is used by Ducky to test that we can connect to Pi and send it commands.
-fi
+
 
 # trigger callback for on boot finished
 #(

