@@ -10,7 +10,7 @@ Speaking of included:
 A payload mixing duckout and hidout to call a batch file stored on the USB_STORAGE, as well as a few random tests.
 - I stashed all the test and example payloads into "example" subfolder for organization purposes.
 
-A python script that will allow you to reset and power down your Raspberry Pi by installing a button. see /gpio/gpio_button.py
+A python script that will allow you to reset and power down your Raspberry Pi by installing a button. see /gpio/button.py
 
 I've hijacked ledtool to use an external LED to show status. Please refer to ledtool.py in order to get new color setting information. Below will list how I am using these LED colors.
 - When the LED is solid green, it means P4wnP1 is idle and ready for a job.
