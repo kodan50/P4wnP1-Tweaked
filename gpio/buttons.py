@@ -12,7 +12,9 @@ while True:
 	if GPIO.input(4) == 0:
 		print('Raspberry Pi is going for a power down now!')
 		os.system("sudo shutdown -h now")
+		time.sleep(2)
 	if GPIO.input(12) == 0:
 		print('Raspberry Pi is going for a reboot now!')
 		os.system("sudo reboot")
-	time.sleep(0.05) # You may want to tweak this setting to suit your needs. A lower value increases sensitivity to button presses at the cost of CPU cycles.
+		time.sleep(2)
+	time.sleep(0.05) # This value represents how long the button has to be pressed to register. A lower value increases sensitivity to button presses at the cost of increased CPU usage.
