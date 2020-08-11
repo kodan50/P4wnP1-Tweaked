@@ -1,4 +1,4 @@
-# P4wnP1
+# P4wnP1-Tweaked
 
 WIP. Please use this modification with extreme care. This modification currently has no polish, and has no been tested outside of a very specific setup, and the installation will probably fail spectacularely.
 
@@ -8,6 +8,7 @@ stuff I've wanted to see included. I am also hoping this means I can restore my 
 Speaking of included:
 
 A payload mixing duckout and hidout to call a batch file stored on the USB_STORAGE, as well as a few random tests.
+* Windows 10 apparently treats DELAY as a keystroke and opens Office when DELAY is used. I changed the script so DUCKY won't use DELAY, so Office won't break DUCKY.
 - I stashed all the test and example payloads into "example" subfolder for organization purposes.
 
 A python script that will allow you to reset and power down your Raspberry Pi by installing a button. see /gpio/button.py
